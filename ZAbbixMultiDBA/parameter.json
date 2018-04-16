@@ -1,0 +1,82 @@
+﻿{
+  "Zabbix": {
+    "Server": "10.0.0.15",
+    "Port": "10051",
+    "AgentPath": "\"C:\\Program Files\\Zabbix Agent\\zabbix_sender.exe\"",
+    "Debug": "true",
+    "Database": [
+      {
+        "ID": "1",
+        "ConnectionString": "DRIVER=Progress OpenEdge 11.6 Driver;HOST=SUN150;PORT=11000;DB=emsesp;UID=usuario;PWD=senha;DIL=0"
+      },
+      {
+        "ID": "2",
+        "ConnectionString": "DRIVER=Progress OpenEdge 11.6 Driver;HOST=SUN150;PORT=10000;DB=emsdev;UID=usuario;PWD=senha;DIL=0"
+      },
+      {
+        "ID": "3",
+        "ConnectionString": "DRIVER=Progress OpenEdge 11.6 Driver;HOST=SUN150;PORT=10800;DB=srmov;UID=usuario;PWD=senha;DIL=0"
+      }
+    ],
+    "Select": [
+      {
+        "Description": "Lista tamanho das bases Progress",
+        "SQL": "SELECT sum(f.\"_FileList-Size\")/1024 as 'Base' FROM PUB.\"_Filelist\" f where f.\"_FileList-Name\" like '%.d%'",
+        "Config": [
+          {
+            "Database": "1",
+            "Host": "Progress Database",
+            "Trap": "Progress-emsesp-TamanhoBase",
+          },
+          {
+            "Database": "2",
+            "Host": "Progress Database",
+            "Trap": "Progress-emsdev-TamanhoBase"
+          }
+        ]
+      },
+      {
+        "Description": "Lista Locks das bases Progress",
+        "SQL": "select count(l.\"_Lock-Usr\") from PUB.\"_Lock\" l, sysprogress.SYSTABLES t, pub.\"_connect\" c where c.\"_Connect-Usr\" = l.\"_Lock-Usr\" and l.\"_Lock-Usr\" is not null and l.\"_Lock-Table\" = t.\"ID\"",
+        "Config": [
+          {
+            "Database": "1",
+            "Host": "Progress Database",
+            "Trap": "Progress-emsesp-Locks"
+          },
+          {
+            "Database": "2",
+            "Host": "Progress Database",
+            "Trap": "Progress-emsdev-Locks"
+          },
+          {
+            "Database": "3",
+            "Host": "Progress Database",
+            "Trap": "Progress-srmov-Locks"
+          }
+        ]
+      },
+      {
+        "Description": "Lista quantidade de transações ativas",
+        "SQL": "select count(\"_Trans-Id\") from pub.\"_trans\" where \"_Trans-State\" = 'ACTIVE'",
+        "Config": [
+          {
+            "Database": "1",
+            "Host": "Progress Database",
+            "Trap": "Progress-emsesp-Transacoes"
+          },
+          {
+            "Database": "2",
+            "Host": "Progress Database",
+            "Trap": "Progress-emsdev-Transacoes"
+          },
+          {
+            "Database": "3",
+            "Host": "Progress Database",
+            "Trap": "Progress-srmov-Transacoes"
+          }
+        ]
+      }
+    ]
+  }
+}
