@@ -26,7 +26,7 @@
           {
             "Database": "1",
             "Host": "Progress Database",
-            "Trap": "Progress-emsesp-TamanhoBase",
+            "Trap": "Progress-emsesp-TamanhoBase"
           },
           {
             "Database": "2",
