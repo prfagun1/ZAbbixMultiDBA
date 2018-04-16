@@ -1,6 +1,6 @@
 ﻿# Documentation
 
-This is a command line utility to send database data do Zabbix Server
+This is a command line utility to send database data to Zabbix Server
 
 ### Prerequisite: 
 	- Microsoft Windows
