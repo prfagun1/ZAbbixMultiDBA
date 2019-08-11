@@ -17,7 +17,8 @@ This is a command line utility to send database data do Zabbix Server
 	- To create a Zabbix xml host configuration file
 	ZAbbixMultiDBA parameterFile xml
 
-Example: The file parameter.json is an example of configuration. Just pay attention on Database and IDm you have to put this ID on each Select-Config.
+Example: Parameter.json is an example of configuration.
+	 Just pay attention on Database and ID, you have to put it on each Select-Config.
 
 	
-Tip: You can have multiple parameter files to run database scripts in different periods 
+Tip: You can have multiple parameter files to run database scripts in different periods.
